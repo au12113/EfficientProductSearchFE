@@ -2,25 +2,17 @@
   <div id="app">
     <div class="container-fluid">
       <Header />
-      <div id="body" class="row justify-content-md-center">
-        <div class="col-md-3 col-xl-2">
-          <Sidebar />
-        </div>
-        <div id="main" class="col-md-8 col-xl-10">
-          <router-view/>
-        </div>
-      </div>
+      <router-view/>
     </div>
   </div>
 </template>
 
 <script>
 import Header from './components/Layout/Header.vue'
-import Sidebar from './components/Layout/Sidebar.vue'
 
 export default {
   name: 'App',
-  components: { Header, Sidebar }
+  components: { Header }
 }
 </script>
 
@@ -39,6 +31,6 @@ export default {
   height: 60vh;
 }
 #main {
-  border: 2px solid black
+  /* border: 2px solid black */
 }
 </style>
