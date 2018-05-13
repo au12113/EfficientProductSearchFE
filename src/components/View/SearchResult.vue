@@ -9,7 +9,16 @@
       <input id="search-box" type="text" placeholder="Phrase" v-model="queryObject.phrase" @keyup.13="fetch(queryObject)"/>
       <button type="button" class="btn btn-primary" @click="fetch(queryObject)">Fetch</button>
 
-      <h4>Search Result: {{products.length}}</h4>
+      <!-- <h4>Search Result: {{products.length}}</h4> -->
+        <nav aria-label="Page navigation example" style="margin-top: 20px;">
+          <ul class="pagination">
+            <li class="page-item"><a class="page-link" href="#">Previous</a></li>
+            <!-- <li class="page-item"><a class="page-link" href="#">1</a></li>
+            <li class="page-item"><a class="page-link" href="#">2</a></li>
+            <li class="page-item"><a class="page-link" href="#">3</a></li> -->
+            <li class="page-item"><a class="page-link" @click="nextPage()">Next</a></li>
+          </ul>
+        </nav>
       <div v-if="!ready">
         <h4>Wait...</h4>
       </div>
@@ -25,6 +34,7 @@
 <script>
 import ProductCard from '../UIComponents/ProductCard.vue'
 import Sidebar from '../Layout/Sidebar.vue'
+import config from '../../assets/config.json'
 import axios from 'axios'
 
 export default {
@@ -37,6 +47,7 @@ export default {
       filterQuery: '',
       queryObject: {
         phrase: 'Core i7',
+        page: 1,
         limit: 10
       },
       products: []
@@ -54,10 +65,12 @@ export default {
       });
       if(this.filterQuery !== '')
         queryString = queryString + 'phrase' + '=' + this.queryObject.phrase + ' ' + this.filterQuery
+      else
+        queryString = queryString + 'phrase' + '=' + this.queryObject.phrase
       console.log(queryString)
       this.ready = false
       axios
-      .get('http://localhost:3000/'+'Notebooks'+ queryString)
+      .get(config.server[0] + config.collection[0] + queryString)
       .then((res) => {
         this.products = res.data
         this.ready = true
@@ -65,6 +78,10 @@ export default {
     },
     getFilterQuery(v) {
       this.filterQuery = v;
+    },
+    nextPage() {
+      this.queryObject.page += 1;
+      this.fetch(this.queryObject)
     }
   },
   mounted () {

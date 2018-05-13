@@ -1,0 +1,10 @@
+{
+    "server": [
+        "http://localhost:3000/",
+        "https://product-search-server-dev.herokuapp.com/"
+    ],
+    "collection": [
+        "Notebooks",
+        "Crawlers"
+    ]
+}
