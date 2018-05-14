@@ -11,12 +11,14 @@
 
       <!-- <h4>Search Result: {{products.length}}</h4> -->
         <nav aria-label="Page navigation example" style="margin-top: 20px;">
-          <ul class="pagination">
-            <li class="page-item"><a class="page-link" href="#">Previous</a></li>
-            <!-- <li class="page-item"><a class="page-link" href="#">1</a></li>
-            <li class="page-item"><a class="page-link" href="#">2</a></li>
-            <li class="page-item"><a class="page-link" href="#">3</a></li> -->
-            <li class="page-item"><a class="page-link" @click="nextPage()">Next</a></li>
+          <ul class="pagination justify-content-center">
+            <li class="page-item" v-if="queryObject.page != 1"><a class="page-link" @click="prevPage()">Previous</a></li>
+            <li class="page-item disabled" v-else><a class="page-link">Previous</a></li>
+            <li class="page-item disabled">
+              <a class="page-link" >{{queryObject.page}}</a>
+            </li>
+            <li class="page-item" v-if="products.length >= queryObject.limit"><a class="page-link" @click="nextPage()">Next</a></li>
+            <li class="page-item disabled" v-else><a class="page-link">Next</a></li>
           </ul>
         </nav>
       <div v-if="!ready">
@@ -81,6 +83,10 @@ export default {
     },
     nextPage() {
       this.queryObject.page += 1;
+      this.fetch(this.queryObject)
+    },
+    prevPage() {
+      this.queryObject.page -= 1;
       this.fetch(this.queryObject)
     }
   },
