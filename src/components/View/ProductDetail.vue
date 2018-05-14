@@ -35,7 +35,7 @@ export default {
   components: { SalesTable },
   data () {
     return {
-      keys: ['Chipset','CPU','Display','Graphics','RAM','OS'],
+      keys: ['Chipset','CPU','Display','Graphics','RAM','OS','screen'],
       ready: false,
       product: '',
       sales: []
@@ -44,15 +44,15 @@ export default {
   methods: {
     fetch(productID) {
       axios
-      .get(config.server[0] + config.collection[0] + "/id/"+ this.$route.params.productID)
+      .get(config.server[0] + config.collection[2] + "/id/"+ this.$route.params.productID)
       .then((res) => {
         Object.keys(res.data[0]["features"]).forEach(function(key) {
-          console.log(res.data[0]["features"][key].sort())
+          // console.log(res.data[0]["features"][key].sort())
           if(Array.isArray(res.data[0]["features"][key]))
             res.data[0]["features"][key] = res.data[0]["features"][key].sort()
         })
         this.product = res.data[0]
-        return axios.get(config.server[0] + config.collection[0] + "/sales/?model="+ res.data[0].model)
+        return axios.get(config.server[0] + config.collection[2] + "/sales/?model="+ res.data[0].model)
       })
       .then((res) => {
         this.sales = res.data
