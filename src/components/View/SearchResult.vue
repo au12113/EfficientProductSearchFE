@@ -72,7 +72,7 @@ export default {
       console.log(queryString)
       this.ready = false
       axios
-      .get(config.server[0] + config.collection[2] + queryString)
+      .get(config.server[0] + config.collection[1] + queryString)
       .then((res) => {
         this.products = res.data
         this.ready = true

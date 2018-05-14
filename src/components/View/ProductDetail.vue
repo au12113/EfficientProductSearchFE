@@ -10,7 +10,7 @@
         </div>
         <div class="col-xl-1"></div>
         <div id="product-detail" class="col-xs-12 col-md-6 col-xl-7">
-          <h5>{{product.brand}} {{product.model}}</h5>
+          <h5>{{product.brand.toUpperCase()}} {{product.model}}</h5>
           <li v-if="product.features[key]!=undefined" v-for="key in keys">
             {{key}} : 
             <span v-for="feature in product.features[key]">
